@@ -28,6 +28,15 @@ struct SettingsView: View {
             }
         }
         .formStyle(.grouped)
+        .onAppear {
+            readLaunchAtLoginState()
+        }
+    }
+
+    private func readLaunchAtLoginState() {
+        if #available(macOS 13.0, *) {
+            launchAtLogin = (SMAppService.mainApp.status == .enabled)
+        }
     }
 
     private func setLaunchAtLogin(_ enabled: Bool) {
@@ -39,7 +48,8 @@ struct SettingsView: View {
                     try SMAppService.mainApp.unregister()
                 }
             } catch {
-                print("Launch at login error: \(error)")
+                // Revert toggle on failure
+                launchAtLogin = !enabled
             }
         }
     }

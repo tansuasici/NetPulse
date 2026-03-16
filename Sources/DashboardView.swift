@@ -31,6 +31,24 @@ struct DashboardView: View {
                     .foregroundColor(.secondary)
             }
 
+            // Error banner
+            if let error = speedTest.errorMessage {
+                HStack(spacing: 6) {
+                    Image(systemName: "exclamationmark.triangle.fill")
+                        .foregroundColor(.yellow)
+                    Text(error)
+                        .font(.caption)
+                    Spacer()
+                    Button { speedTest.errorMessage = nil } label: {
+                        Image(systemName: "xmark.circle.fill")
+                            .foregroundColor(.secondary)
+                    }
+                    .buttonStyle(.plain)
+                }
+                .padding(8)
+                .background(RoundedRectangle(cornerRadius: 8).fill(Color.yellow.opacity(0.1)))
+            }
+
             // Speed Test Results / Indicator
             if let result = speedTest.lastResult {
                 testResultsView(result)

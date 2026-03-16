@@ -5,9 +5,21 @@ class SpeedTestService: ObservableObject {
     @Published var phase: String = ""
     @Published var currentValue: Double = 0
     @Published var lastResult: SpeedTestResult?
+    @Published var errorMessage: String?
 
     private let downURL = "https://speed.cloudflare.com/__down"
     private let upURL = "https://speed.cloudflare.com/__up"
+
+    /// Ephemeral session: no cache, no cookies, no keep-alive reuse
+    private lazy var session: URLSession = {
+        let config = URLSessionConfiguration.ephemeral
+        config.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData
+        config.urlCache = nil
+        config.httpShouldSetCookies = false
+        config.timeoutIntervalForRequest = 30
+        config.timeoutIntervalForResource = 60
+        return URLSession(configuration: config)
+    }()
 
     func runTest(historyStore: HistoryStore) {
         guard !isRunning else { return }
@@ -16,25 +28,27 @@ class SpeedTestService: ObservableObject {
             self.isRunning = true
             self.phase = "ping"
             self.currentValue = 0
+            self.errorMessage = nil
         }
 
         Task {
             do {
-                // Ping
+                // Ping - warm up with one throw-away request to establish TLS
+                let warmupURL = URL(string: "\(downURL)?bytes=0")!
+                _ = try await session.data(from: warmupURL)
+
                 let ping = try await measurePing()
                 await MainActor.run {
                     self.currentValue = ping
                     self.phase = "download"
                 }
 
-                // Download
                 let download = try await measureDownload()
                 await MainActor.run {
                     self.currentValue = download
                     self.phase = "upload"
                 }
 
-                // Upload
                 let upload = try await measureUpload()
 
                 let result = historyStore.save(
@@ -52,6 +66,7 @@ class SpeedTestService: ObservableObject {
                 await MainActor.run {
                     self.isRunning = false
                     self.phase = ""
+                    self.errorMessage = Self.friendlyError(error)
                 }
             }
         }
@@ -61,9 +76,9 @@ class SpeedTestService: ObservableObject {
         var pings: [Double] = []
 
         for _ in 0..<5 {
-            let start = CFAbsoluteTimeGetCurrent()
             let url = URL(string: "\(downURL)?bytes=0")!
-            let _ = try await URLSession.shared.data(from: url)
+            let start = CFAbsoluteTimeGetCurrent()
+            let _ = try await session.data(from: url)
             let elapsed = (CFAbsoluteTimeGetCurrent() - start) * 1000
             pings.append(elapsed)
         }
@@ -79,22 +94,22 @@ class SpeedTestService: ObservableObject {
         for size in sizes {
             let url = URL(string: "\(downURL)?bytes=\(size)")!
             let start = CFAbsoluteTimeGetCurrent()
-            let (data, _) = try await URLSession.shared.data(from: url)
+            let (data, _) = try await session.data(from: url)
             let elapsed = CFAbsoluteTimeGetCurrent() - start
 
             if elapsed > 0 {
                 let mbps = Double(data.count) * 8.0 / (elapsed * 1_000_000)
                 speeds.append(mbps)
 
-                await MainActor.run {
-                    self.currentValue = mbps
-                }
+                await MainActor.run { self.currentValue = mbps }
             }
 
             if elapsed > 5 { break }
         }
 
-        guard !speeds.isEmpty else { return 0 }
+        guard !speeds.isEmpty else {
+            throw SpeedTestError.noMeasurement("Download measurement failed")
+        }
         speeds.sort()
         let idx = min(Int(ceil(Double(speeds.count) * 0.9)) - 1, speeds.count - 1)
         return speeds[idx]
@@ -111,24 +126,45 @@ class SpeedTestService: ObservableObject {
             request.httpBody = Data(count: size)
 
             let start = CFAbsoluteTimeGetCurrent()
-            let _ = try await URLSession.shared.data(for: request)
+            let _ = try await session.data(for: request)
             let elapsed = CFAbsoluteTimeGetCurrent() - start
 
             if elapsed > 0 {
                 let mbps = Double(size) * 8.0 / (elapsed * 1_000_000)
                 speeds.append(mbps)
 
-                await MainActor.run {
-                    self.currentValue = mbps
-                }
+                await MainActor.run { self.currentValue = mbps }
             }
 
             if elapsed > 5 { break }
         }
 
-        guard !speeds.isEmpty else { return 0 }
+        guard !speeds.isEmpty else {
+            throw SpeedTestError.noMeasurement("Upload measurement failed")
+        }
         speeds.sort()
         let idx = min(Int(ceil(Double(speeds.count) * 0.9)) - 1, speeds.count - 1)
         return speeds[idx]
     }
+
+    private static func friendlyError(_ error: Error) -> String {
+        if let urlError = error as? URLError {
+            switch urlError.code {
+            case .notConnectedToInternet: return "No internet connection"
+            case .timedOut: return "Connection timed out"
+            case .cannotFindHost, .cannotConnectToHost: return "Cannot reach speed test server"
+            default: return "Network error: \(urlError.localizedDescription)"
+            }
+        }
+        if let stError = error as? SpeedTestError {
+            switch stError {
+            case .noMeasurement(let msg): return msg
+            }
+        }
+        return "Test failed: \(error.localizedDescription)"
+    }
+}
+
+enum SpeedTestError: Error {
+    case noMeasurement(String)
 }
