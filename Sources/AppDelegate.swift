@@ -24,7 +24,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         )
 
         // Status bar
-        statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+        statusItem = NSStatusBar.system.statusItem(withLength: 170)
 
         if let button = statusItem.button {
             button.title = " ↓0K ↑0K"
