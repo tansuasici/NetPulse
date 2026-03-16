@@ -21,17 +21,9 @@ A native macOS menu bar app that monitors your **internet speed** in real time a
 
 ## Install
 
-1. Clone the repo
-2. Open `NetPulse.xcodeproj` in Xcode
-3. Build & Run (Cmd+R)
+Download the latest DMG from [Releases](https://github.com/tansuasici/NetPulse/releases), open it, and drag NetPulse to Applications.
 
-```bash
-git clone https://github.com/tansuasici/NetPulse.git
-cd NetPulse
-open NetPulse.xcodeproj
-```
-
-Requires macOS 13.0 (Ventura) or later and Xcode 15+.
+Requires macOS 13.0 (Ventura) or later.
 
 ## How It Works
 
