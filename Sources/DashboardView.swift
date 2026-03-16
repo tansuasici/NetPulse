@@ -61,7 +61,10 @@ struct DashboardView: View {
             Spacer(minLength: 0)
 
             // Action button
-            Button(action: { speedTest.runTest(historyStore: historyStore) }) {
+            Button(action: {
+                speedTest.lastResult = nil
+                speedTest.runTest(historyStore: historyStore)
+            }) {
                 Label(
                     speedTest.isRunning ? "Testing..." :
                     speedTest.lastResult != nil ? "Test Again" : "Start Speed Test",
@@ -149,7 +152,7 @@ struct DashboardView: View {
 
     private var phaseLabel: String {
         switch speedTest.phase {
-        case "ping": return "Measuring ping..."
+        case "latency": return "Measuring latency..."
         case "download": return "Testing download..."
         case "upload": return "Testing upload..."
         default: return "Starting..."

@@ -10,14 +10,18 @@ struct NetworkStats {
 
     static func formatShort(_ bytesPerSec: Double) -> String {
         let bits = bytesPerSec * 8
+        let raw: String
         if bits >= 1_000_000_000 {
-            return String(format: "%.1fG", bits / 1_000_000_000)
+            raw = String(format: "%.1fG", bits / 1_000_000_000)
         } else if bits >= 1_000_000 {
-            return String(format: "%.1fM", bits / 1_000_000)
+            raw = String(format: "%.1fM", bits / 1_000_000)
         } else if bits >= 1_000 {
-            return String(format: "%.0fK", bits / 1_000)
+            raw = String(format: "%.0fK", bits / 1_000)
+        } else {
+            raw = "0K"
         }
-        return "0K"
+        // Pad to 6 chars so the menu bar doesn't jump around
+        return raw.count < 6 ? String(repeating: " ", count: 6 - raw.count) + raw : raw
     }
 
     static func formatFull(_ bytesPerSec: Double) -> String {

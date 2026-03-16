@@ -10,6 +10,10 @@ class SpeedTestService: ObservableObject {
     private let downURL = "https://speed.cloudflare.com/__down"
     private let upURL = "https://speed.cloudflare.com/__up"
 
+    /// Atomic flag to prevent concurrent test runs
+    private let runLock = NSLock()
+    private var isRunningInternal = false
+
     /// Ephemeral session: no cache, no cookies, no keep-alive reuse
     private lazy var session: URLSession = {
         let config = URLSessionConfiguration.ephemeral
@@ -22,24 +26,37 @@ class SpeedTestService: ObservableObject {
     }()
 
     func runTest(historyStore: HistoryStore) {
-        guard !isRunning else { return }
+        // Atomic check-and-set to prevent race condition
+        runLock.lock()
+        if isRunningInternal {
+            runLock.unlock()
+            return
+        }
+        isRunningInternal = true
+        runLock.unlock()
 
         DispatchQueue.main.async {
             self.isRunning = true
-            self.phase = "ping"
+            self.phase = "latency"
             self.currentValue = 0
             self.errorMessage = nil
         }
 
         Task {
+            defer {
+                self.runLock.lock()
+                self.isRunningInternal = false
+                self.runLock.unlock()
+            }
+
             do {
-                // Ping - warm up with one throw-away request to establish TLS
+                // Warm up: establish TLS before measuring latency
                 let warmupURL = URL(string: "\(downURL)?bytes=0")!
                 _ = try await session.data(from: warmupURL)
 
-                let ping = try await measurePing()
+                let latency = try await measureLatency()
                 await MainActor.run {
-                    self.currentValue = ping
+                    self.currentValue = latency
                     self.phase = "download"
                 }
 
@@ -54,11 +71,15 @@ class SpeedTestService: ObservableObject {
                 let result = historyStore.save(
                     download: round(download * 100) / 100,
                     upload: round(upload * 100) / 100,
-                    ping: round(ping * 100) / 100
+                    ping: round(latency * 100) / 100
                 )
 
                 await MainActor.run {
-                    self.lastResult = result
+                    if let result = result {
+                        self.lastResult = result
+                    } else {
+                        self.errorMessage = "Failed to save result"
+                    }
                     self.isRunning = false
                     self.phase = ""
                 }
@@ -72,19 +93,21 @@ class SpeedTestService: ObservableObject {
         }
     }
 
-    private func measurePing() async throws -> Double {
-        var pings: [Double] = []
+    /// Measures HTTP round-trip latency (not ICMP ping).
+    /// TLS handshake is excluded via warmup request.
+    private func measureLatency() async throws -> Double {
+        var times: [Double] = []
 
         for _ in 0..<5 {
             let url = URL(string: "\(downURL)?bytes=0")!
             let start = CFAbsoluteTimeGetCurrent()
             let _ = try await session.data(from: url)
             let elapsed = (CFAbsoluteTimeGetCurrent() - start) * 1000
-            pings.append(elapsed)
+            times.append(elapsed)
         }
 
-        pings.sort()
-        return pings[pings.count / 2]
+        times.sort()
+        return times[times.count / 2]
     }
 
     private func measureDownload() async throws -> Double {

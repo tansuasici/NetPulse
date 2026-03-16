@@ -33,20 +33,28 @@ class HistoryStore: ObservableObject {
         sqlite3_close(db)
     }
 
-    @discardableResult
-    func save(download: Double, upload: Double, ping: Double) -> SpeedTestResult {
+    /// Returns nil if the database write fails.
+    func save(download: Double, upload: Double, ping: Double) -> SpeedTestResult? {
         let now = Date()
         let sql = "INSERT INTO speed_history (download_mbps, upload_mbps, ping_ms, timestamp) VALUES (?, ?, ?, ?)"
         var stmt: OpaquePointer?
 
-        if sqlite3_prepare_v2(db, sql, -1, &stmt, nil) == SQLITE_OK {
-            sqlite3_bind_double(stmt, 1, download)
-            sqlite3_bind_double(stmt, 2, upload)
-            sqlite3_bind_double(stmt, 3, ping)
-            sqlite3_bind_double(stmt, 4, now.timeIntervalSince1970)
-            sqlite3_step(stmt)
+        guard sqlite3_prepare_v2(db, sql, -1, &stmt, nil) == SQLITE_OK else {
+            sqlite3_finalize(stmt)
+            return nil
         }
+
+        sqlite3_bind_double(stmt, 1, download)
+        sqlite3_bind_double(stmt, 2, upload)
+        sqlite3_bind_double(stmt, 3, ping)
+        sqlite3_bind_double(stmt, 4, now.timeIntervalSince1970)
+
+        let stepResult = sqlite3_step(stmt)
         sqlite3_finalize(stmt)
+
+        guard stepResult == SQLITE_DONE else {
+            return nil
+        }
 
         let rowId = sqlite3_last_insert_rowid(db)
         let result = SpeedTestResult(
