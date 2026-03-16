@@ -1,7 +1,7 @@
 # NetPulse
 
 <p align="center">
-  <img src="Resources/icon.png" alt="NetPulse Logo" width="128" height="128">
+  <img src="Resources/appicon.png" alt="NetPulse Logo" width="128" height="128">
 </p>
 
 A native macOS menu bar app that monitors your **internet speed** in real time and runs **Cloudflare-powered speed tests** with one click.
