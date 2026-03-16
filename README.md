@@ -1,20 +1,19 @@
 # NetPulse
 
-Native macOS menu bar app for real-time internet speed monitoring and speed testing.
+<p align="center">
+  <img src="Resources/icon.png" alt="NetPulse Logo" width="128" height="128">
+</p>
 
-![macOS](https://img.shields.io/badge/macOS-13.0+-black?logo=apple)
-![Swift](https://img.shields.io/badge/Swift-5.9+-orange?logo=swift)
-![Architecture](https://img.shields.io/badge/arch-universal-blue)
-![Size](https://img.shields.io/badge/size-~1MB-green)
+A native macOS menu bar app that monitors your **internet speed** in real time and runs **Cloudflare-powered speed tests** with one click.
 
 ## Features
 
-- **Real-time monitoring** — Live upload/download speed in the menu bar
-- **Speed test** — Cloudflare-powered download, upload, and ping measurement
-- **Test history** — Results saved locally with SQLite
-- **Native UI** — SwiftUI popover with segmented tabs
-- **Lightweight** — ~1MB universal binary, zero external dependencies
-- **Privacy** — No data leaves your machine (tests go directly to Cloudflare edge)
+- **Live Speed in Menu Bar** — Real-time upload/download speed displayed right in your menu bar.
+- **Speed Test** — Cloudflare-powered download, upload, and ping measurement with progressive payloads.
+- **Test History** — All results saved locally with SQLite, viewable anytime.
+- **Menu Bar Native** — Lives in your macOS menu bar, one click to open.
+- **Lightweight** — ~1MB universal binary (arm64 + x86_64), zero external dependencies.
+- **Local-First** — All data stays on your device. No servers, no telemetry.
 
 ## Install
 
@@ -25,27 +24,27 @@ bash build.sh
 open build/NetPulse.app
 ```
 
-## Usage
-
-- Click the menu bar icon to open/close the popover
-- **Speed tab** — Live traffic + run a speed test
-- **History tab** — View past test results
-- **Settings tab** — Launch at startup, quit
+Requires macOS 13.0 (Ventura) or later and Xcode Command Line Tools (`xcode-select --install`).
 
 ## How It Works
 
-| Component | Implementation |
-|-----------|---------------|
-| Menu bar | `NSStatusItem` + `NSPopover` |
-| Live speed | `getifaddrs` reading physical interface (`en*`) byte counters |
-| Speed test | `URLSession` (ephemeral) against `speed.cloudflare.com` endpoints |
-| Storage | `sqlite3` C API via `~/Library/Application Support/NetPulse/` |
-| UI | SwiftUI with native `Form`, `GroupBox`, `List` |
+### Live Monitoring
+1. Reads macOS network interface byte counters (`getifaddrs`) every second
+2. Filters to physical interfaces only (`en*`) to avoid VPN/tunnel double counting
+3. Displays current speed in the menu bar as `↓X ↑Y`
 
-## Build Requirements
+### Speed Test
+1. Connects to Cloudflare's edge network (`speed.cloudflare.com`)
+2. Measures ping (median of 5), download (progressive 100KB–25MB), and upload (progressive 100KB–10MB)
+3. Reports 90th percentile (p90) for realistic results
+4. Uses ephemeral URLSession — no cache, no cookie, no keep-alive bias
 
-- macOS 13.0+
-- Xcode Command Line Tools (`xcode-select --install`)
+## Privacy
+
+All data stays on your device. NetPulse:
+- Does **not** send data to any server (other than `speed.cloudflare.com` for speed tests you initiate)
+- Does **not** collect analytics or telemetry
+- History is stored locally in `~/Library/Application Support/NetPulse/`
 
 ## License
 
