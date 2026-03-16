@@ -30,7 +30,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             button.title = " ↓0K ↑0K"
             button.action = #selector(togglePopover)
             button.target = self
-            button.font = NSFont.monospacedDigitSystemFont(ofSize: 12, weight: .medium)
+            button.font = NSFont.monospacedSystemFont(ofSize: 11, weight: .medium)
 
             if let iconPath = Bundle.main.resourcePath.map({ $0 + "/icon.png" }),
                let image = NSImage(contentsOfFile: iconPath) {
