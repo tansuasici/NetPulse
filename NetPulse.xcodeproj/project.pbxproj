@@ -1,0 +1,339 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		34CA63E70508E2BDDDF83A61 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4459389E9D6CF3362981496C /* main.swift */; };
+		40EC2AD008138E5490781CBF /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AAE7432DA5440BCB451620 /* HistoryView.swift */; };
+		47DACA766155E9A324395E6E /* SpeedTestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4BB36223CD5494D605FF05 /* SpeedTestService.swift */; };
+		52D28A3A2002F1B92BA29ADC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AE81AD3A231585D09F84B0 /* AppDelegate.swift */; };
+		53C0F208B7D3AF0AAAC8757E /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6891060FC433AB479D2DF7B8 /* SettingsView.swift */; };
+		57AB7B61CFED1FA24CFA2B5D /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A0D7CC39B51F623A1BB86A /* DashboardView.swift */; };
+		5F429DE9A1C8E6012C3C53EF /* SpeedGaugeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 336B46E33ECF4CC9AF74C133 /* SpeedGaugeView.swift */; };
+		7A4D136F52A69116C15E959B /* HistoryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273A09CBA1161A4862D7F7A3 /* HistoryStore.swift */; };
+		7AD66302605C36A2C015727B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEAD0D025808FF4894B8579 /* ContentView.swift */; };
+		87ADA75E757AC6EFBB4F3237 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747C23DC6700A915DBF7730E /* Models.swift */; };
+		E0787E73C7D65547A7930ABF /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F5B46657EAB12DCD1D3453 /* NetworkMonitor.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		273A09CBA1161A4862D7F7A3 /* HistoryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryStore.swift; sourceTree = "<group>"; };
+		336B46E33ECF4CC9AF74C133 /* SpeedGaugeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedGaugeView.swift; sourceTree = "<group>"; };
+		4459389E9D6CF3362981496C /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		64D3CBE9211F53A57ED6116A /* NetPulse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NetPulse.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6891060FC433AB479D2DF7B8 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		747C23DC6700A915DBF7730E /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		80AAE7432DA5440BCB451620 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		9BEAD0D025808FF4894B8579 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		B8A0D7CC39B51F623A1BB86A /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		DE4BB36223CD5494D605FF05 /* SpeedTestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedTestService.swift; sourceTree = "<group>"; };
+		F0AE81AD3A231585D09F84B0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F3F5B46657EAB12DCD1D3453 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		5A4EC38DD1CD6D9973825E78 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				64D3CBE9211F53A57ED6116A /* NetPulse.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6DCB79CF066C57125EDFE41A = {
+			isa = PBXGroup;
+			children = (
+				9EAEAC7D09D271CA9DB3BFEA /* Sources */,
+				5A4EC38DD1CD6D9973825E78 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		9EAEAC7D09D271CA9DB3BFEA /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				F0AE81AD3A231585D09F84B0 /* AppDelegate.swift */,
+				9BEAD0D025808FF4894B8579 /* ContentView.swift */,
+				B8A0D7CC39B51F623A1BB86A /* DashboardView.swift */,
+				273A09CBA1161A4862D7F7A3 /* HistoryStore.swift */,
+				80AAE7432DA5440BCB451620 /* HistoryView.swift */,
+				4459389E9D6CF3362981496C /* main.swift */,
+				747C23DC6700A915DBF7730E /* Models.swift */,
+				F3F5B46657EAB12DCD1D3453 /* NetworkMonitor.swift */,
+				6891060FC433AB479D2DF7B8 /* SettingsView.swift */,
+				336B46E33ECF4CC9AF74C133 /* SpeedGaugeView.swift */,
+				DE4BB36223CD5494D605FF05 /* SpeedTestService.swift */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		60F3F22DE90F07E0B18EF3B0 /* NetPulse */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 69C78CC3637C390C5F5BCCD2 /* Build configuration list for PBXNativeTarget "NetPulse" */;
+			buildPhases = (
+				5FFE3339B898AC1FCD474B6D /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NetPulse;
+			packageProductDependencies = (
+			);
+			productName = NetPulse;
+			productReference = 64D3CBE9211F53A57ED6116A /* NetPulse.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2D0230E09FEF04DBAB2FF4D7 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					60F3F22DE90F07E0B18EF3B0 = {
+						ProvisioningStyle = Manual;
+					};
+				};
+			};
+			buildConfigurationList = 7C692F7B537A491A144AE6D9 /* Build configuration list for PBXProject "NetPulse" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 6DCB79CF066C57125EDFE41A;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				60F3F22DE90F07E0B18EF3B0 /* NetPulse */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5FFE3339B898AC1FCD474B6D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52D28A3A2002F1B92BA29ADC /* AppDelegate.swift in Sources */,
+				7AD66302605C36A2C015727B /* ContentView.swift in Sources */,
+				57AB7B61CFED1FA24CFA2B5D /* DashboardView.swift in Sources */,
+				7A4D136F52A69116C15E959B /* HistoryStore.swift in Sources */,
+				40EC2AD008138E5490781CBF /* HistoryView.swift in Sources */,
+				87ADA75E757AC6EFBB4F3237 /* Models.swift in Sources */,
+				E0787E73C7D65547A7930ABF /* NetworkMonitor.swift in Sources */,
+				53C0F208B7D3AF0AAAC8757E /* SettingsView.swift in Sources */,
+				5F429DE9A1C8E6012C3C53EF /* SpeedGaugeView.swift in Sources */,
+				47DACA766155E9A324395E6E /* SpeedTestService.swift in Sources */,
+				34CA63E70508E2BDDDF83A61 /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		19A9B1FE5580A369050F9AE8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "";
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 0.1.0;
+				OTHER_LDFLAGS = (
+					"-lsqlite3",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.netpulse.desktop;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+		472648FE2AE8597A473B89DF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		7860C3CDC3CEA73A4F752B1B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "";
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 0.1.0;
+				OTHER_LDFLAGS = (
+					"-lsqlite3",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.netpulse.desktop;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+		9933A3A93BCF706BBECC8A5F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		69C78CC3637C390C5F5BCCD2 /* Build configuration list for PBXNativeTarget "NetPulse" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7860C3CDC3CEA73A4F752B1B /* Debug */,
+				19A9B1FE5580A369050F9AE8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		7C692F7B537A491A144AE6D9 /* Build configuration list for PBXProject "NetPulse" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				472648FE2AE8597A473B89DF /* Debug */,
+				9933A3A93BCF706BBECC8A5F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2D0230E09FEF04DBAB2FF4D7 /* Project object */;
+}

@@ -1,0 +1,31 @@
+name: NetPulse
+options:
+  bundleIdPrefix: com.netpulse
+  deploymentTarget:
+    macOS: "13.0"
+  xcodeVersion: "16.0"
+
+targets:
+  NetPulse:
+    type: application
+    platform: macOS
+    sources:
+      - Sources
+    resources:
+      - Resources
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.netpulse.desktop
+        MARKETING_VERSION: "0.1.0"
+        CURRENT_PROJECT_VERSION: 1
+        INFOPLIST_FILE: Resources/Info.plist
+        GENERATE_INFOPLIST_FILE: false
+        ASSETCATALOG_COMPILER_APPICON_NAME: ""
+        CODE_SIGN_IDENTITY: "-"
+        CODE_SIGN_STYLE: Manual
+        MACOSX_DEPLOYMENT_TARGET: "13.0"
+        SWIFT_VERSION: "5.9"
+        OTHER_LDFLAGS:
+          - "-lsqlite3"
+        LD_RUNPATH_SEARCH_PATHS:
+          - "@executable_path/../Frameworks"
