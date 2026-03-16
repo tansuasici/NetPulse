@@ -9,7 +9,7 @@ A native macOS menu bar app that monitors your **internet speed** in real time a
 ## Features
 
 - **Live Speed in Menu Bar** — Real-time upload/download speed displayed right in your menu bar.
-- **Speed Test** — Cloudflare-powered download, upload, and ping measurement with progressive payloads.
+- **Speed Test** — Cloudflare-powered download, upload, and latency measurement with progressive payloads.
 - **Test History** — All results saved locally with SQLite, viewable anytime.
 - **Menu Bar Native** — Lives in your macOS menu bar, one click to open.
 - **Lightweight** — ~1MB universal binary (arm64 + x86_64), zero external dependencies.
@@ -38,7 +38,7 @@ Requires macOS 13.0 (Ventura) or later and Xcode 15+.
 
 ### Speed Test
 1. Connects to Cloudflare's edge network (`speed.cloudflare.com`)
-2. Measures ping (median of 5), download (progressive 100KB–25MB), and upload (progressive 100KB–10MB)
+2. Measures latency (median of 5), download (progressive 100KB–25MB), and upload (progressive 100KB–10MB)
 3. Reports 90th percentile (p90) for realistic results
 4. Uses ephemeral URLSession — no cache, no cookie, no keep-alive bias
 
