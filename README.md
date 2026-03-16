@@ -6,6 +6,10 @@
 
 A native macOS menu bar app that monitors your **internet speed** in real time and runs **Cloudflare-powered speed tests** with one click.
 
+<p align="center">
+  <img src="screenshot.png" width="314" alt="NetPulse screenshot">
+</p>
+
 ## Features
 
 - **Live Speed in Menu Bar** — Real-time upload/download speed displayed right in your menu bar.
