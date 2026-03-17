@@ -11,8 +11,10 @@ targets:
     platform: macOS
     sources:
       - Sources
-    resources:
-      - Resources
+      - path: Resources
+        buildPhase: resources
+        excludes:
+          - "Info.plist"
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.netpulse.desktop

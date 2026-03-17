@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2F36E9EBAD8B233D09D44EA5 /* appicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1555D1610339320D169BC6B8 /* appicon.png */; };
 		34CA63E70508E2BDDDF83A61 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4459389E9D6CF3362981496C /* main.swift */; };
 		40EC2AD008138E5490781CBF /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AAE7432DA5440BCB451620 /* HistoryView.swift */; };
 		47DACA766155E9A324395E6E /* SpeedTestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4BB36223CD5494D605FF05 /* SpeedTestService.swift */; };
@@ -16,11 +17,15 @@
 		5F429DE9A1C8E6012C3C53EF /* SpeedGaugeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 336B46E33ECF4CC9AF74C133 /* SpeedGaugeView.swift */; };
 		7A4D136F52A69116C15E959B /* HistoryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273A09CBA1161A4862D7F7A3 /* HistoryStore.swift */; };
 		7AD66302605C36A2C015727B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEAD0D025808FF4894B8579 /* ContentView.swift */; };
+		86AC69B751F2B264EE1654D5 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F9EE348978021E7D556115D /* icon.png */; };
 		87ADA75E757AC6EFBB4F3237 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747C23DC6700A915DBF7730E /* Models.swift */; };
+		BCC1D6BDA72103F0061A3D23 /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 19537E6E30D6C82985319698 /* AppIcon.icns */; };
 		E0787E73C7D65547A7930ABF /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F5B46657EAB12DCD1D3453 /* NetworkMonitor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1555D1610339320D169BC6B8 /* appicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = appicon.png; sourceTree = "<group>"; };
+		19537E6E30D6C82985319698 /* AppIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AppIcon.icns; sourceTree = "<group>"; };
 		273A09CBA1161A4862D7F7A3 /* HistoryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryStore.swift; sourceTree = "<group>"; };
 		336B46E33ECF4CC9AF74C133 /* SpeedGaugeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedGaugeView.swift; sourceTree = "<group>"; };
 		4459389E9D6CF3362981496C /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
@@ -28,6 +33,7 @@
 		6891060FC433AB479D2DF7B8 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		747C23DC6700A915DBF7730E /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		80AAE7432DA5440BCB451620 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		8F9EE348978021E7D556115D /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		9BEAD0D025808FF4894B8579 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		B8A0D7CC39B51F623A1BB86A /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		DE4BB36223CD5494D605FF05 /* SpeedTestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedTestService.swift; sourceTree = "<group>"; };
@@ -47,6 +53,7 @@
 		6DCB79CF066C57125EDFE41A = {
 			isa = PBXGroup;
 			children = (
+				B54155448AF4242176041E64 /* Resources */,
 				9EAEAC7D09D271CA9DB3BFEA /* Sources */,
 				5A4EC38DD1CD6D9973825E78 /* Products */,
 			);
@@ -70,6 +77,16 @@
 			path = Sources;
 			sourceTree = "<group>";
 		};
+		B54155448AF4242176041E64 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				19537E6E30D6C82985319698 /* AppIcon.icns */,
+				1555D1610339320D169BC6B8 /* appicon.png */,
+				8F9EE348978021E7D556115D /* icon.png */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -78,6 +95,7 @@
 			buildConfigurationList = 69C78CC3637C390C5F5BCCD2 /* Build configuration list for PBXNativeTarget "NetPulse" */;
 			buildPhases = (
 				5FFE3339B898AC1FCD474B6D /* Sources */,
+				CC78F7F42EE80C85CB8FA8CB /* Resources */,
 			);
 			buildRules = (
 			);
@@ -122,6 +140,19 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CC78F7F42EE80C85CB8FA8CB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BCC1D6BDA72103F0061A3D23 /* AppIcon.icns in Resources */,
+				2F36E9EBAD8B233D09D44EA5 /* appicon.png in Resources */,
+				86AC69B751F2B264EE1654D5 /* icon.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		5FFE3339B898AC1FCD474B6D /* Sources */ = {
