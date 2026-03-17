@@ -25,6 +25,8 @@ Download the latest DMG from [Releases](https://github.com/tansuasici/NetPulse/r
 
 Requires macOS 13.0 (Ventura) or later.
 
+> **Note:** Since the app is not notarized, macOS may show a warning on first launch. Right-click the app, select **Open**, then click **Open** again to bypass it.
+
 ## How It Works
 
 ### Live Monitoring
