@@ -8,68 +8,72 @@ struct HistoryView: View {
             if historyStore.entries.isEmpty {
                 emptyState
             } else {
-                List {
-                    ForEach(historyStore.entries) { entry in
-                        historyRow(entry)
+                ScrollView {
+                    LazyVStack(spacing: 0) {
+                        ForEach(historyStore.entries) { entry in
+                            historyRow(entry)
+                            Rectangle().fill(Color.primary.opacity(0.05)).frame(height: 1)
+                        }
                     }
                 }
-                .listStyle(.inset)
+                .frame(maxHeight: 260)
 
-                Divider()
+                Rectangle().fill(Color.primary.opacity(0.06)).frame(height: 1)
 
-                HStack {
-                    Spacer()
-                    Button(role: .destructive, action: { historyStore.clearHistory() }) {
-                        Label("Clear History", systemImage: "trash")
-                            .font(.caption)
+                Button(role: .destructive, action: { historyStore.clearHistory() }) {
+                    HStack(spacing: 4) {
+                        Image(systemName: "trash")
+                            .font(.system(size: 9))
+                        Text("Clear")
+                            .font(.system(size: 10, weight: .medium))
                     }
-                    .buttonStyle(.borderless)
-                    .padding(8)
                 }
+                .buttonStyle(.plain)
+                .foregroundColor(.secondary)
+                .padding(.vertical, 6)
             }
         }
     }
 
     private var emptyState: some View {
-        VStack(spacing: 8) {
-            Image(systemName: "clock.badge.questionmark")
-                .font(.system(size: 32))
-                .foregroundColor(.secondary.opacity(0.4))
-            Text("No test results yet")
-                .font(.callout)
+        VStack(spacing: 4) {
+            Image(systemName: "clock")
+                .font(.system(size: 20))
+                .foregroundColor(.secondary.opacity(0.3))
+            Text("No results yet")
+                .font(.system(size: 11))
                 .foregroundColor(.secondary)
-            Text("Run a speed test from the Speed tab")
-                .font(.caption)
-                .foregroundColor(.secondary.opacity(0.7))
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 30)
     }
 
     private func historyRow(_ entry: SpeedTestResult) -> some View {
-        VStack(alignment: .leading, spacing: 4) {
+        HStack(spacing: 0) {
+            // Date
             Text(entry.formattedDate)
-                .font(.caption)
-                .foregroundColor(.secondary)
-
-            HStack(spacing: 12) {
-                statBadge(icon: "arrow.down", value: entry.downloadMbps, unit: "Mbps", color: .green)
-                statBadge(icon: "arrow.up", value: entry.uploadMbps, unit: "Mbps", color: .blue)
-                statBadge(icon: "timer", value: entry.pingMs, unit: "ms", color: .orange)
-            }
-        }
-        .padding(.vertical, 2)
-    }
-
-    private func statBadge(icon: String, value: Double, unit: String, color: Color) -> some View {
-        HStack(spacing: 3) {
-            Image(systemName: icon)
-                .font(.system(size: 9, weight: .bold))
-                .foregroundColor(color)
-            Text(String(format: unit == "ms" ? "%.0f" : "%.1f", value))
-                .font(.system(size: 12, weight: .medium, design: .monospaced))
-            Text(unit)
                 .font(.system(size: 9))
                 .foregroundColor(.secondary)
+                .frame(width: 62, alignment: .leading)
+
+            Spacer(minLength: 4)
+
+            // Stats inline
+            HStack(spacing: 8) {
+                statValue(value: entry.downloadMbps, color: .green)
+                statValue(value: entry.uploadMbps, color: .blue)
+                statValue(value: entry.pingMs, color: .orange, format: "%.0f ms")
+            }
+        }
+        .padding(.horizontal, 12)
+        .padding(.vertical, 6)
+    }
+
+    private func statValue(value: Double, color: Color, format: String = "%.0f") -> some View {
+        HStack(spacing: 2) {
+            Circle().fill(color).frame(width: 4, height: 4)
+            Text(String(format: format, value))
+                .font(.system(size: 10, weight: .medium, design: .monospaced))
         }
     }
 }

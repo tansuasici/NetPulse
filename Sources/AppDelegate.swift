@@ -16,7 +16,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         // Popover
         popover = NSPopover()
-        popover.contentSize = NSSize(width: 340, height: 460)
+        popover.contentSize = NSSize(width: 280, height: 200)
         popover.behavior = .transient
         popover.animates = true
         popover.contentViewController = NSHostingController(
@@ -24,7 +24,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         )
 
         // Status bar
-        statusItem = NSStatusBar.system.statusItem(withLength: 170)
+        statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
 
         if let button = statusItem.button {
             button.title = " ↓0K ↑0K"

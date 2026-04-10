@@ -4,14 +4,6 @@ enum Tab: String, CaseIterable {
     case dashboard = "Speed"
     case history = "History"
     case settings = "Settings"
-
-    var icon: String {
-        switch self {
-        case .dashboard: return "bolt.fill"
-        case .history: return "clock.fill"
-        case .settings: return "gearshape.fill"
-        }
-    }
 }
 
 struct ContentView: View {
@@ -22,18 +14,31 @@ struct ContentView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            // Segmented control
-            Picker("", selection: $activeTab) {
+            // Custom tab bar
+            HStack(spacing: 2) {
                 ForEach(Tab.allCases, id: \.self) { tab in
-                    Label(tab.rawValue, systemImage: tab.icon).tag(tab)
+                    Button(action: { withAnimation(.easeInOut(duration: 0.15)) { activeTab = tab } }) {
+                        Text(tab.rawValue)
+                            .font(.system(size: 11, weight: activeTab == tab ? .semibold : .regular))
+                            .foregroundColor(activeTab == tab ? .primary : .secondary)
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 5)
+                            .background(
+                                activeTab == tab
+                                    ? RoundedRectangle(cornerRadius: 6).fill(Color.primary.opacity(0.08))
+                                    : nil
+                            )
+                    }
+                    .buttonStyle(.plain)
                 }
             }
-            .pickerStyle(.segmented)
-            .padding(.horizontal, 12)
-            .padding(.top, 10)
+            .padding(.horizontal, 8)
+            .padding(.top, 8)
             .padding(.bottom, 6)
 
-            Divider()
+            Rectangle()
+                .fill(Color.primary.opacity(0.06))
+                .frame(height: 1)
 
             // Content
             switch activeTab {
@@ -49,6 +54,7 @@ struct ContentView: View {
                 SettingsView()
             }
         }
-        .frame(width: 340, height: 460)
+        .frame(width: 280)
+        .background(Color(nsColor: .windowBackgroundColor))
     }
 }

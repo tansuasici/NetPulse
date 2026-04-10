@@ -11,31 +11,31 @@ struct SpeedGaugeView: View {
     }
 
     var body: some View {
-        VStack(spacing: 2) {
+        VStack(spacing: 1) {
             ZStack {
                 // Background arc
                 ArcShape(progress: 1.0)
-                    .stroke(Color.secondary.opacity(0.15), style: StrokeStyle(lineWidth: 6, lineCap: .round))
-                    .frame(width: 110, height: 58)
+                    .stroke(Color.secondary.opacity(0.15), style: StrokeStyle(lineWidth: 5, lineCap: .round))
+                    .frame(width: 90, height: 48)
 
                 // Value arc
                 ArcShape(progress: percentage)
-                    .stroke(color.gradient, style: StrokeStyle(lineWidth: 6, lineCap: .round))
-                    .frame(width: 110, height: 58)
+                    .stroke(color.gradient, style: StrokeStyle(lineWidth: 5, lineCap: .round))
+                    .frame(width: 90, height: 48)
                     .animation(.easeOut(duration: 0.5), value: percentage)
 
                 VStack(spacing: 0) {
                     Text(String(format: "%.1f", value))
-                        .font(.system(size: 18, weight: .semibold, design: .monospaced))
+                        .font(.system(size: 15, weight: .semibold, design: .monospaced))
                     Text("Mbps")
-                        .font(.system(size: 9))
+                        .font(.system(size: 8))
                         .foregroundColor(.secondary)
                 }
-                .offset(y: 6)
+                .offset(y: 5)
             }
 
             Text(label)
-                .font(.caption2)
+                .font(.system(size: 10))
                 .foregroundColor(.secondary)
         }
     }

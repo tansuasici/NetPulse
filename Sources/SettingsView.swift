@@ -5,32 +5,70 @@ struct SettingsView: View {
     @State private var launchAtLogin = false
 
     var body: some View {
-        Form {
-            Section {
-                Toggle("Launch at startup", isOn: Binding(
-                    get: { launchAtLogin },
-                    set: { newValue in
-                        launchAtLogin = newValue
-                        setLaunchAtLogin(newValue)
-                    }
-                ))
-            }
-
-            Section("About") {
-                LabeledContent("Version", value: "0.1.0")
-                LabeledContent("Speed Test", value: "Cloudflare")
-            }
-
-            Section {
-                Button(role: .destructive, action: { NSApp.terminate(nil) }) {
-                    Label("Quit NetPulse", systemImage: "power")
+        VStack(spacing: 0) {
+            VStack(spacing: 0) {
+                // Launch at startup
+                HStack {
+                    Text("Launch at startup")
+                        .font(.system(size: 11))
+                    Spacer()
+                    Toggle("", isOn: Binding(
+                        get: { launchAtLogin },
+                        set: { newValue in
+                            launchAtLogin = newValue
+                            setLaunchAtLogin(newValue)
+                        }
+                    ))
+                    .toggleStyle(.switch)
+                    .controlSize(.small)
                 }
+                .padding(.horizontal, 12)
+                .padding(.vertical, 8)
+
+                Rectangle().fill(Color.primary.opacity(0.06)).frame(height: 1)
+
+                // About
+                VStack(spacing: 0) {
+                    settingsRow(label: "Version", value: "0.2.0")
+                    Rectangle().fill(Color.primary.opacity(0.04)).frame(height: 1).padding(.leading, 12)
+                    settingsRow(label: "Speed Test", value: "Cloudflare")
+                }
+
+                Rectangle().fill(Color.primary.opacity(0.06)).frame(height: 1)
             }
+
+            Spacer()
+
+            // Quit
+            Button(action: { NSApp.terminate(nil) }) {
+                HStack(spacing: 4) {
+                    Image(systemName: "power")
+                        .font(.system(size: 9))
+                    Text("Quit NetPulse")
+                        .font(.system(size: 11, weight: .medium))
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 8)
+            }
+            .buttonStyle(.plain)
+            .foregroundColor(.secondary)
         }
-        .formStyle(.grouped)
         .onAppear {
             readLaunchAtLoginState()
         }
+    }
+
+    private func settingsRow(label: String, value: String) -> some View {
+        HStack {
+            Text(label)
+                .font(.system(size: 11))
+            Spacer()
+            Text(value)
+                .font(.system(size: 11))
+                .foregroundColor(.secondary)
+        }
+        .padding(.horizontal, 12)
+        .padding(.vertical, 6)
     }
 
     private func readLaunchAtLoginState() {
@@ -48,7 +86,6 @@ struct SettingsView: View {
                     try SMAppService.mainApp.unregister()
                 }
             } catch {
-                // Revert toggle on failure
                 launchAtLogin = !enabled
             }
         }

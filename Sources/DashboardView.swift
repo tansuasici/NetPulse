@@ -6,50 +6,52 @@ struct DashboardView: View {
     @ObservedObject var historyStore: HistoryStore
 
     var body: some View {
-        VStack(spacing: 14) {
-            // Live Monitor
-            GroupBox {
-                HStack {
-                    liveItem(
-                        icon: "arrow.down.circle.fill",
-                        color: .green,
-                        value: NetworkStats.formatFull(monitor.currentStats.downloadBytesPerSec)
-                    )
-                    Spacer()
-                    Divider().frame(height: 28)
-                    Spacer()
-                    liveItem(
-                        icon: "arrow.up.circle.fill",
-                        color: .blue,
-                        value: NetworkStats.formatFull(monitor.currentStats.uploadBytesPerSec)
-                    )
-                }
-                .padding(.vertical, 2)
-            } label: {
-                Label("Live Traffic", systemImage: "network")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
+        VStack(spacing: 0) {
+            // Live traffic - compact inline
+            HStack(spacing: 0) {
+                liveItem(
+                    icon: "arrow.down.circle.fill",
+                    color: .green,
+                    value: NetworkStats.formatFull(monitor.currentStats.downloadBytesPerSec)
+                )
+                Spacer()
+                liveItem(
+                    icon: "arrow.up.circle.fill",
+                    color: .blue,
+                    value: NetworkStats.formatFull(monitor.currentStats.uploadBytesPerSec)
+                )
             }
+            .padding(.horizontal, 12)
+            .padding(.vertical, 8)
+            .background(Color.primary.opacity(0.03))
+
+            Rectangle().fill(Color.primary.opacity(0.06)).frame(height: 1)
 
             // Error banner
             if let error = speedTest.errorMessage {
-                HStack(spacing: 6) {
+                HStack(spacing: 4) {
                     Image(systemName: "exclamationmark.triangle.fill")
-                        .foregroundColor(.yellow)
+                        .font(.system(size: 10))
+                        .foregroundColor(.orange)
                     Text(error)
-                        .font(.caption)
+                        .font(.system(size: 10))
+                        .lineLimit(1)
                     Spacer()
                     Button { speedTest.errorMessage = nil } label: {
-                        Image(systemName: "xmark.circle.fill")
+                        Image(systemName: "xmark")
+                            .font(.system(size: 8, weight: .bold))
                             .foregroundColor(.secondary)
                     }
                     .buttonStyle(.plain)
                 }
-                .padding(8)
-                .background(RoundedRectangle(cornerRadius: 8).fill(Color.yellow.opacity(0.1)))
+                .padding(.horizontal, 12)
+                .padding(.vertical, 6)
+                .background(Color.orange.opacity(0.08))
+
+                Rectangle().fill(Color.primary.opacity(0.06)).frame(height: 1)
             }
 
-            // Speed Test Results / Indicator
+            // Main content area
             if let result = speedTest.lastResult {
                 testResultsView(result)
             } else if speedTest.isRunning {
@@ -58,96 +60,95 @@ struct DashboardView: View {
                 idleView
             }
 
-            Spacer(minLength: 0)
+            Rectangle().fill(Color.primary.opacity(0.06)).frame(height: 1)
 
-            // Action button
+            // Action button - flush bottom
             Button(action: {
                 speedTest.lastResult = nil
                 speedTest.runTest(historyStore: historyStore)
             }) {
-                Label(
-                    speedTest.isRunning ? "Testing..." :
-                    speedTest.lastResult != nil ? "Test Again" : "Start Speed Test",
-                    systemImage: speedTest.isRunning ? "hourglass" : "play.fill"
-                )
+                HStack(spacing: 5) {
+                    Image(systemName: speedTest.isRunning ? "hourglass" : "play.fill")
+                        .font(.system(size: 9))
+                    Text(
+                        speedTest.isRunning ? "Testing..." :
+                        speedTest.lastResult != nil ? "Test Again" : "Start Speed Test"
+                    )
+                    .font(.system(size: 11, weight: .medium))
+                }
                 .frame(maxWidth: .infinity)
+                .padding(.vertical, 8)
             }
-            .controlSize(.large)
+            .buttonStyle(.plain)
+            .foregroundColor(.accentColor)
             .disabled(speedTest.isRunning)
+            .opacity(speedTest.isRunning ? 0.5 : 1)
         }
-        .padding(12)
     }
 
+    // MARK: - Live item
+
     private func liveItem(icon: String, color: Color, value: String) -> some View {
-        HStack(spacing: 6) {
-            Image(systemName: icon)
-                .foregroundColor(color)
-                .font(.system(size: 14))
+        HStack(spacing: 4) {
+            Circle()
+                .fill(color)
+                .frame(width: 6, height: 6)
             Text(value)
-                .font(.system(size: 13, weight: .medium, design: .monospaced))
-                .frame(minWidth: 80, alignment: .leading)
+                .font(.system(size: 11, weight: .medium, design: .monospaced))
         }
     }
 
     // MARK: - Results
 
     private func testResultsView(_ result: SpeedTestResult) -> some View {
-        GroupBox {
-            VStack(spacing: 10) {
-                HStack(spacing: 16) {
-                    SpeedGaugeView(
-                        value: result.downloadMbps,
-                        maxValue: max(result.downloadMbps * 1.3, 100),
-                        label: "Download",
-                        color: .green
-                    )
-                    SpeedGaugeView(
-                        value: result.uploadMbps,
-                        maxValue: max(result.uploadMbps * 1.3, 100),
-                        label: "Upload",
-                        color: .blue
-                    )
-                }
-
-                Divider()
-
-                HStack {
-                    Label("Ping", systemImage: "timer")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                    Spacer()
-                    Text(String(format: "%.1f ms", result.pingMs))
-                        .font(.system(size: 14, weight: .medium, design: .monospaced))
-                }
+        VStack(spacing: 0) {
+            HStack(spacing: 0) {
+                resultMetric(value: result.downloadMbps, unit: "Mbps", label: "Download", color: .green)
+                Rectangle().fill(Color.primary.opacity(0.06)).frame(width: 1)
+                resultMetric(value: result.uploadMbps, unit: "Mbps", label: "Upload", color: .blue)
+                Rectangle().fill(Color.primary.opacity(0.06)).frame(width: 1)
+                resultMetric(value: result.pingMs, unit: "ms", label: "Ping", color: .orange, format: "%.0f")
             }
-        } label: {
-            Label("Speed Test Result", systemImage: "gauge.with.dots.needle.67percent")
-                .font(.caption)
-                .foregroundColor(.secondary)
         }
+    }
+
+    private func resultMetric(value: Double, unit: String, label: String, color: Color, format: String = "%.1f") -> some View {
+        VStack(spacing: 2) {
+            Text(label)
+                .font(.system(size: 9))
+                .foregroundColor(.secondary)
+            HStack(alignment: .firstTextBaseline, spacing: 2) {
+                Text(String(format: format, value))
+                    .font(.system(size: 16, weight: .semibold, design: .monospaced))
+                    .foregroundColor(color)
+                Text(unit)
+                    .font(.system(size: 8))
+                    .foregroundColor(.secondary)
+            }
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 12)
     }
 
     // MARK: - Testing
 
     private var testingView: some View {
-        GroupBox {
-            VStack(spacing: 10) {
-                ProgressView()
-                    .controlSize(.small)
+        VStack(spacing: 6) {
+            ProgressView()
+                .controlSize(.small)
 
-                Text(phaseLabel)
-                    .font(.callout)
-                    .foregroundColor(.secondary)
+            Text(phaseLabel)
+                .font(.system(size: 10))
+                .foregroundColor(.secondary)
 
-                if speedTest.currentValue > 0 {
-                    Text(String(format: "%.1f Mbps", speedTest.currentValue))
-                        .font(.system(size: 22, weight: .semibold, design: .monospaced))
-                        .foregroundColor(.accentColor)
-                }
+            if speedTest.currentValue > 0 {
+                Text(String(format: "%.1f Mbps", speedTest.currentValue))
+                    .font(.system(size: 18, weight: .semibold, design: .monospaced))
+                    .foregroundColor(.accentColor)
             }
-            .frame(maxWidth: .infinity)
-            .padding(.vertical, 20)
         }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 16)
     }
 
     private var phaseLabel: String {
@@ -162,17 +163,15 @@ struct DashboardView: View {
     // MARK: - Idle
 
     private var idleView: some View {
-        GroupBox {
-            VStack(spacing: 6) {
-                Image(systemName: "speedometer")
-                    .font(.system(size: 28))
-                    .foregroundColor(.secondary.opacity(0.5))
-                Text("Test your internet speed")
-                    .font(.callout)
-                    .foregroundColor(.secondary)
-            }
-            .frame(maxWidth: .infinity)
-            .padding(.vertical, 24)
+        VStack(spacing: 4) {
+            Image(systemName: "speedometer")
+                .font(.system(size: 20))
+                .foregroundColor(.secondary.opacity(0.4))
+            Text("Test your internet speed")
+                .font(.system(size: 11))
+                .foregroundColor(.secondary)
         }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 16)
     }
 }
