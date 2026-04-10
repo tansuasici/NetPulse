@@ -7,7 +7,7 @@
 Real-time internet speed monitor and speed test app for the macOS menu bar.
 
 <p align="center">
-  <img src="screenshot.png" width="314" alt="NetPulse screenshot">
+  <img src="screenshot.png" width="280" alt="NetPulse screenshot">
 </p>
 
 ## Features
@@ -16,7 +16,7 @@ Real-time internet speed monitor and speed test app for the macOS menu bar.
 - **Speed Test** — Cloudflare-powered download, upload, and latency measurement with progressive payloads.
 - **Test History** — All results saved locally with SQLite, viewable anytime.
 - **Menu Bar Native** — Lives in your macOS menu bar, one click to open.
-- **Lightweight** — ~1MB universal binary (arm64 + x86_64), zero external dependencies.
+- **Lightweight** — ~800KB native binary, zero external dependencies.
 - **Local-First** — All data stays on your device. No servers, no telemetry.
 
 ## Install
